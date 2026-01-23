@@ -22,6 +22,10 @@ public class InventarioCajeroJPA {
     
     @Column(name = "cantidaddisponible")
     private int CantidadDisponible;
+    
+    @ManyToOne
+    @JoinColumn(name = "iddenominacion")
+    private TDenominacionJPA tDenominacionJPA;
 
     public int getIdStock() {
         return IdStock;

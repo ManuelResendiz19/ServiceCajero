@@ -6,9 +6,23 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedStoredProcedureQuery;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.StoredProcedureParameter;
 import jakarta.persistence.Table;
 
 @Entity
+//@NamedStoredProcedureQuery(
+//    name = "LoginCajero",
+//    procedureName = "LoginCajero",
+//    parameters = {
+//        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pNoCuenta", type = String.class),
+//        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pPIN", type = String.class),
+//        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pIdCajero", type = Integer.class),
+//        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "pMensaje", type = String.class),
+//        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "pIdUsuario", type = Integer.class)
+//    }
+//)
 @Table(name = "CUENTA")
 public class CuentaJPA {
     

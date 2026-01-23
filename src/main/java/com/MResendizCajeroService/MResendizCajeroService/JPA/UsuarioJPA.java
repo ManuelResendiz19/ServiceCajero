@@ -27,11 +27,71 @@ public class UsuarioJPA {
     @Column(name = "apellidomaterno")
     private String ApellidoMaterno;
     
+    @Column(name = "username")
+    private String userName;
+    
     @Column(name = "password")
     private String Password;
     
     @ManyToOne
     @JoinColumn(name = "idrol")
     private RolJPA rolJPA;
+
+    public int getIdUsuario() {
+        return IdUsuario;
+    }
+
+    public void setIdUsuario(int IdUsuario) {
+        this.IdUsuario = IdUsuario;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+
+    public String getApellidoPaterno() {
+        return ApellidoPaterno;
+    }
+
+    public void setApellidoPaterno(String ApellidoPaterno) {
+        this.ApellidoPaterno = ApellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return ApellidoMaterno;
+    }
+
+    public void setApellidoMaterno(String ApellidoMaterno) {
+        this.ApellidoMaterno = ApellidoMaterno;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
+
+    public RolJPA getRolJPA() {
+        return rolJPA;
+    }
+
+    public void setRolJPA(RolJPA rolJPA) {
+        this.rolJPA = rolJPA;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    
     
 }
