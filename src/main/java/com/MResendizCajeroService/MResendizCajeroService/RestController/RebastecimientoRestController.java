@@ -24,7 +24,8 @@ public class RebastecimientoRestController {
         try {
             
             rebastecimientoCajeroService.rellenar(rellenar.getIdCajero(),rellenar.getIdDenom(), rellenar.getCantidad());
-            
+            result.correct = true;
+            result.status = 200;
         } catch (Exception ex) {
             result.correct = false;
             result.errorMessage = ex.getLocalizedMessage();

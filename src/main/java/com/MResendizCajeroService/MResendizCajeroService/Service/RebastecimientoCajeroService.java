@@ -21,7 +21,7 @@ public class RebastecimientoCajeroService {
              iResbastecimientoCajero.rellenar(IdCajero, IdDenom, Cantidad);
              
              result.correct = true;
-             result.status = 202;
+             result.status = 200;
              result.object = "Rebastecimiendo al Cajero" + IdCajero + "fue completado";
              
          } catch (Exception ex) {
