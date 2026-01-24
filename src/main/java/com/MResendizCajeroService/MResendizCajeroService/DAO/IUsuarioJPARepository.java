@@ -1,6 +1,6 @@
 
 
-package com.MResendizCajeroService.MResendizCajeroService.DTO;
+package com.MResendizCajeroService.MResendizCajeroService.DAO;
 
 import com.MResendizCajeroService.MResendizCajeroService.JPA.UsuarioJPA;
 import org.springframework.data.jpa.repository.JpaRepository;

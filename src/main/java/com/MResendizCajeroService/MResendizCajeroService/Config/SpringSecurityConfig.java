@@ -1,4 +1,3 @@
-
 package com.MResendizCajeroService.MResendizCajeroService.Config;
 
 import com.MResendizCajeroService.MResendizCajeroService.JWT.JwtAuthFilter;
@@ -17,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
@@ -30,7 +28,6 @@ public class SpringSecurityConfig {
         this.usuarioDetailsJPAService = usuarioDetailsJPAService;
         this.jwtAuthFilter = jwtAuthFilter;
     }
-  
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
@@ -40,18 +37,17 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(configurer -> configurer
                 .requestMatchers("/api/auth/login").permitAll()
                 .requestMatchers("/api/cajero/loginCajero").permitAll()
+                .requestMatchers("/api/Cajeros").permitAll()
                 .requestMatchers("/api/retirar").permitAll()
                 .requestMatchers("/api/rellenar").permitAll()
-         
-                .anyRequest().authenticated()                       
+                .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);       
-                
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
- 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -62,11 +58,11 @@ public class SpringSecurityConfig {
         return config.getAuthenticationManager();
     }
 
-   @Bean
+    @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(usuarioDetailsJPAService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
-    
+
 }

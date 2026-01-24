@@ -2,7 +2,7 @@
 package com.MResendizCajeroService.MResendizCajeroService.Service;
 
 
-import com.MResendizCajeroService.MResendizCajeroService.DTO.IUsuarioJPARepository;
+import com.MResendizCajeroService.MResendizCajeroService.DAO.IUsuarioJPARepository;
 import com.MResendizCajeroService.MResendizCajeroService.JPA.UsuarioJPA;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

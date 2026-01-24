@@ -2,15 +2,33 @@
 
 package com.MResendizCajeroService.MResendizCajeroService.DAO;
 
-import com.MResendizCajeroService.MResendizCajeroService.JPA.TransaccionesJPA;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.query.Procedure;
-import org.springframework.data.repository.query.Param;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
+import java.math.BigDecimal;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IRetirarRepository extends JpaRepository<TransaccionesJPA, Long>{
+public class IRetirarRepository {
 
-    @Procedure(procedureName = "RETIRAR")
-    void retiro(@Param("pNoCuenta") String NoCuenta, @Param("pIdCajero") Integer IdCajero,@Param("pMonto") Double Monto);
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    
+    public void retiro(String noCuenta, Integer idCajero, Double monto) {
+
+        StoredProcedureQuery query = entityManager
+                .createStoredProcedureQuery("Retirar");
+
+        query.registerStoredProcedureParameter("pNoCuenta", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("pIdCajero", Integer.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("pMonto", BigDecimal.class, ParameterMode.IN);
+
+        query.setParameter("pNoCuenta", noCuenta);
+        query.setParameter("pIdCajero", idCajero);
+        query.setParameter("pMonto", BigDecimal.valueOf(monto));
+
+        query.execute();
+    }
 }
