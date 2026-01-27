@@ -14,10 +14,10 @@ public class RetirarService {
     private IRetirarRepository retirarRepository;
 
     @Transactional
-    public Result retirar(String noCuenta, Integer idCajero, Double monto) {
+    public Result retirar(String NoTarjeta, Integer idCajero, Double monto) {
         Result result = new Result();
         try {
-            retirarRepository.retiro(noCuenta, idCajero, monto);
+            retirarRepository.retiro(NoTarjeta, idCajero, monto);
 
             result.correct = true;
             result.status = 200;

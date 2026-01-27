@@ -16,18 +16,18 @@ public class ILoginCajeroRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Map<String, Object> loginCajero(String noCuenta) {
+    public Map<String, Object> loginCajero(String NoTarjeta) {
 
         StoredProcedureQuery query = entityManager
                 .createStoredProcedureQuery("LoginCajero");
 
-        query.registerStoredProcedureParameter("pNoCuenta", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("pNoTarjeta", String.class, ParameterMode.IN);
         query.registerStoredProcedureParameter("pMensaje", String.class, ParameterMode.OUT);
         query.registerStoredProcedureParameter("pIdUsuario", Integer.class, ParameterMode.OUT);
         query.registerStoredProcedureParameter("pPinHash", String.class, ParameterMode.OUT);
         query.registerStoredProcedureParameter("pIdEstado", Integer.class, ParameterMode.OUT);
 
-        query.setParameter("pNoCuenta", noCuenta);
+        query.setParameter("pNoTarjeta", NoTarjeta);
 
         query.execute();
 

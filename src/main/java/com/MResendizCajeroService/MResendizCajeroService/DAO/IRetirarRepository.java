@@ -16,16 +16,16 @@ public class IRetirarRepository {
     private EntityManager entityManager;
 
     
-    public void retiro(String noCuenta, Integer idCajero, Double monto) {
+    public void retiro(String NoTarjeta, Integer idCajero, Double monto) {
 
         StoredProcedureQuery query = entityManager
                 .createStoredProcedureQuery("Retirar");
 
-        query.registerStoredProcedureParameter("pNoCuenta", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("pNoTarjeta", String.class, ParameterMode.IN);
         query.registerStoredProcedureParameter("pIdCajero", Integer.class, ParameterMode.IN);
         query.registerStoredProcedureParameter("pMonto", BigDecimal.class, ParameterMode.IN);
 
-        query.setParameter("pNoCuenta", noCuenta);
+        query.setParameter("pNoTarjeta", NoTarjeta);
         query.setParameter("pIdCajero", idCajero);
         query.setParameter("pMonto", BigDecimal.valueOf(monto));
 

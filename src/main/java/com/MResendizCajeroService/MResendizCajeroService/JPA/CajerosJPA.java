@@ -1,4 +1,3 @@
-
 package com.MResendizCajeroService.MResendizCajeroService.JPA;
 
 import jakarta.persistence.Column;
@@ -13,13 +12,13 @@ public class CajerosJPA {
     @Id
     @Column(name = "idcajero")
     private int IdCajero;
-    
+
     @Column(name = "estado")
     private String Estado;
-    
+
     @Column(name = "ubicacion")
     private String Ubicacion;
-    
+
     @Column(name = "capacidadmax")
     private int CapacidadMax;
 
@@ -54,6 +53,5 @@ public class CajerosJPA {
     public void setCapacidadMax(int CapacidadMax) {
         this.CapacidadMax = CapacidadMax;
     }
-    
-    
+
 }

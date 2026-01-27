@@ -50,6 +50,10 @@ public class CuentaJPA {
     @ManyToOne
     @JoinColumn(name = "idestado")
     private EstadoCuentaJPA estadoJPA;
+    
+        @Column(name = "notarjeta", length = 16, unique = true)
+    private String NoTarjeta;
+
 
     public String getNoCuenta() {
         return NoCuenta;
@@ -98,6 +102,7 @@ public class CuentaJPA {
     public void setEstadoJPA(EstadoCuentaJPA estadoJPA) {
         this.estadoJPA = estadoJPA;
     }
+    
 
     public int getIdCuenta() {
         return IdCuenta;
@@ -106,6 +111,15 @@ public class CuentaJPA {
     public void setIdCuenta(int IdCuenta) {
         this.IdCuenta = IdCuenta;
     }
+
+    public String getNoTarjeta() {
+        return NoTarjeta;
+    }
+
+    public void setNoTarjeta(String NoTarjeta) {
+        this.NoTarjeta = NoTarjeta;
+    }
    
+    
    
 }

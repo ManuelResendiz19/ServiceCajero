@@ -19,11 +19,11 @@ public class LoginCajeroService {
     private PasswordEncoder passwordEncoder;
 
     @Transactional
-    public Result loginCajero(String noCuenta, String pinIngresado, Integer idCajero) {
+    public Result loginCajero(String NoTarjeta, String pinIngresado, Integer idCajero) {
         Result result = new Result();
 
         try {
-            Map<String, Object> output = repository.loginCajero(noCuenta);
+            Map<String, Object> output = repository.loginCajero(NoTarjeta);
 
             String mensajeSP = (String) output.get("pMensaje");
             Integer idUsuario = (Integer) output.get("pIdUsuario");

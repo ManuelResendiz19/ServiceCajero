@@ -38,6 +38,7 @@ public class SpringSecurityConfig {
                 .requestMatchers("/api/auth/login").permitAll()
                 .requestMatchers("/api/cajero/loginCajero").permitAll()
                 .requestMatchers("/api/Cajeros").permitAll()
+                        .requestMatchers("/api/Cajeros/{IdCajero}").permitAll()
                 .requestMatchers("/api/retirar").permitAll()
                 .requestMatchers("/api/rellenar").permitAll()
                 .anyRequest().authenticated()

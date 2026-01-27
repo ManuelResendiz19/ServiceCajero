@@ -22,11 +22,11 @@ public class LoginCajeroRestController {
     public ResponseEntity<Result> LogCajero(@RequestBody Map<String, Object> sp) {
         Result result = new Result();
         try {
-            String noCuenta = (String) sp.get("NoCuenta");
+            String noTarjeta = (String) sp.get("NoTarjeta");
             String pin = (String) sp.get("PIN");
             Integer idCajero = Integer.valueOf(sp.get("IdCajero").toString());
 
-            result = loginCajeroService.loginCajero(noCuenta, pin, idCajero);
+            result = loginCajeroService.loginCajero(noTarjeta, pin, idCajero);
 
         } catch (Exception ex) {
             result.correct = false;

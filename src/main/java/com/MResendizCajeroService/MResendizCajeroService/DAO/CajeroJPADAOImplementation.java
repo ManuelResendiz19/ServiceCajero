@@ -37,7 +37,23 @@ public class CajeroJPADAOImplementation implements ICajeroJPA{
 
     @Override
     public Result GetByIdCajeros(int IdCajero) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Result result = new Result();
+        try {
+            
+            CajerosJPA cajero = entityManager.find(CajerosJPA.class, IdCajero);
+            if(cajero != null){
+                result.object = cajero;
+                result.correct = true;
+                result.status = 200;
+            }
+            
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
+
+        return result;
     }
 
 }
