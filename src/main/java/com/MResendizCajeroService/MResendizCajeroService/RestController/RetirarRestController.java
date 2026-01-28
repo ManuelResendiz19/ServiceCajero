@@ -24,7 +24,7 @@ public class RetirarRestController {
     public ResponseEntity<Result> retirar(@RequestBody RetiroRequest request) {
         Result result = new Result();
         try {
-            retirarService.retirar(request.getNoCuenta(), request.getIdCajero(), request.getMonto());
+            retirarService.retirar(request.getNoTarjeta(), request.getIdCajero(), request.getMonto());
 
             result.correct = true;
             result.status = 200;

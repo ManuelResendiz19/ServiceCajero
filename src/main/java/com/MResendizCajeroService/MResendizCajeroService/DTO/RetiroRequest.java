@@ -3,16 +3,16 @@ package com.MResendizCajeroService.MResendizCajeroService.DTO;
 
 
 public class RetiroRequest {
-    private String NoCuenta;
+    private String NoTarjeta;
     private Integer IdCajero;
     private Double Monto;
 
-    public String getNoCuenta() {
-        return NoCuenta;
+    public String getNoTarjeta() {
+        return NoTarjeta;
     }
 
-    public void setNoCuenta(String NoCuenta) {
-        this.NoCuenta = NoCuenta;
+    public void setNoTarjeta(String NoTarjeta) {
+        this.NoTarjeta = NoTarjeta;
     }
 
     public Integer getIdCajero() {

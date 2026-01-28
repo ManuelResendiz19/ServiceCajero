@@ -40,7 +40,7 @@ public class SpringSecurityConfig {
                 .requestMatchers("/api/Cajeros").permitAll()
                         .requestMatchers("/api/Cajeros/{IdCajero}").permitAll()
                 .requestMatchers("/api/retirar").permitAll()
-                .requestMatchers("/api/rellenar").permitAll()
+                .requestMatchers("/api/rellenar").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
