@@ -4,32 +4,34 @@ package com.MResendizCajeroService.MResendizCajeroService.DTO;
 
 public class RellenarRequest {
 
-    private Integer IdCajero;
-    private Integer IdDenom;
-    private Integer Cantidad;
+    private Integer idCajero;
+    private Integer idDenom;
+    private Integer cantidad;
 
-    public Integer getIdCajero() {
-        return IdCajero;
+    public RellenarRequest() {
     }
 
-    public void setIdCajero(Integer IdCajero) {
-        this.IdCajero = IdCajero;
+    public Integer getIdCajero() {
+        return idCajero;
+    }
+
+    public void setIdCajero(Integer idCajero) {
+        this.idCajero = idCajero;
     }
 
     public Integer getIdDenom() {
-        return IdDenom;
+        return idDenom;
     }
 
-    public void setIdDenom(Integer IdDenom) {
-        this.IdDenom = IdDenom;
+    public void setIdDenom(Integer idDenom) {
+        this.idDenom = idDenom;
     }
 
     public Integer getCantidad() {
-        return Cantidad;
+        return cantidad;
     }
 
-    public void setCantidad(Integer Cantidad) {
-        this.Cantidad = Cantidad;
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
-   
 }
