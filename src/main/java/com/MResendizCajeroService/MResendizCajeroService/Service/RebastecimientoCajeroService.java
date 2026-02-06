@@ -14,7 +14,7 @@ public class RebastecimientoCajeroService {
     private IResbastecimientoCajero iResbastecimientoCajero;
     
      @Transactional
-     public Result rellenar(int  IdCajero, int IdDenom, int Cantidad){
+     public Result rellenar(Integer  IdCajero, Integer IdDenom, Integer Cantidad){
          Result result = new Result();
          
          try {

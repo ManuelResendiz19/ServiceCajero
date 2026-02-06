@@ -1,4 +1,3 @@
-
 package com.MResendizCajeroService.MResendizCajeroService.JWT;
 
 import com.MResendizCajeroService.MResendizCajeroService.DTO.LoginResponse;
@@ -15,58 +14,69 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
 
+//@Slf4j
 @Component
 public class JwtUtils {
+
     @Value("${jwt.secret}")
     private String secret;
-    
+
     @Value("${jwt.expiration}")
     private long expiration;
-    
-    
-    public String extractUsername(String Token){
+
+    public String extractUsername(String Token) {
         return extractClaim(Token, Claims::getSubject);
     }
-    
-    
-    private <T> T extractClaim(String Token , Function<Claims, T> claimsResolver){
-        final Claims claims= extractAllClaims(Token);
+
+    private <T> T extractClaim(String Token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(Token);
         return claimsResolver.apply(claims);
     }
-    
-    public String generatedToken(UserDetails userDetails){
-        return generatedToken(new HashMap<>(), userDetails);
+
+    public String generatedToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        claims.put("roles", roles);
+
+        return generatedToken(claims, userDetails);
     }
-    
-        public String generatedToken(Map<String, Object> extraClaims, UserDetails userDetails){
-        return buildToken(extraClaims, userDetails, expiration);        
+
+    public String generatedToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        return buildToken(extraClaims, userDetails, expiration);
     }
-        
-        public long getExpirationTime(){
-            return expiration;
+
+    public long getExpirationTime() {
+        return expiration;
     }
-        
-        private String buildToken(Map<String, Object>extraClaims,
-        UserDetails userDetails,
-        long expiration){
-            return Jwts.builder()
-                    .setClaims(extraClaims)
-                    .setSubject(userDetails.getUsername())
-                    .setId(java.util.UUID.randomUUID().toString())
-                    .setIssuedAt(new Date(System.currentTimeMillis()))
-                    .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
-                    .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                    .compact();
-        }
-        
-        public boolean isTokenValid(String token, UserDetails userDetails) {
+
+    private String buildToken(Map<String, Object> extraClaims,
+            UserDetails userDetails,
+            long expiration) {
+        return Jwts.builder()
+                .setClaims(extraClaims)
+                .setSubject(userDetails.getUsername())
+                .setId(java.util.UUID.randomUUID().toString())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
@@ -74,7 +84,7 @@ public class JwtUtils {
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
-    
+
     public Date extractCreatedAt(String token) {
         return extractClaim(token, Claims::getIssuedAt);
     }
@@ -97,10 +107,10 @@ public class JwtUtils {
         return (Key) Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public LoginResponse generateLoginResponse(UserDetails userDetails, String  rol) {
+    public LoginResponse generateLoginResponse(UserDetails userDetails, String rol) {
         String token = generatedToken(userDetails);
         Date createdAt = extractCreatedAt(token);
         Date expiresAt = extractExpiration(token);
-        return new LoginResponse(token, createdAt, expiresAt,rol);
+        return new LoginResponse(token, createdAt, expiresAt, rol);
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,7 +30,7 @@ public class SpringSecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
 
     public SpringSecurityConfig(UsuarioDetailsJPAService usuarioDetailsJPAService,
-                                JwtAuthFilter jwtAuthFilter) {
+            JwtAuthFilter jwtAuthFilter) {
         this.usuarioDetailsJPAService = usuarioDetailsJPAService;
         this.jwtAuthFilter = jwtAuthFilter;
     }
@@ -38,24 +39,26 @@ public class SpringSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/cajero/**").permitAll()
                 .requestMatchers("/api/Cajeros/**").permitAll()
                 .requestMatchers("/api/retirar/**").permitAll()
-                .requestMatchers("/api/rellenar/**").hasRole("ADMIN")
+                .requestMatchers("/api/imprimir").permitAll()
+                .requestMatchers("/api/rellenar").hasRole("ADMIN")
                 .requestMatchers("/api/denominaciones/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
-            )
-            .authenticationProvider(authenticationProvider())
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                )
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-     @Bean
+    @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(usuarioDetailsJPAService);
         provider.setPasswordEncoder(passwordEncoder());
@@ -66,12 +69,12 @@ public class SpringSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
-     @Bean
+
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-    
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
